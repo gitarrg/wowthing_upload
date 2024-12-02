@@ -17,21 +17,21 @@ monitoring windows drives.
 - add the paths to the wowthing files to the wowthing_upload.service file
 
 ```bash
-sudo ln -s `pwd`/wowthing_upload.service /etc/init.d/wowthing_upload
-sudo service wowthing_upload enable
-sudo service wowthing_upload start
+sudo ln -s ./wowthing_upload.service /etc/systemd/system/wowthing_upload.service
+sudo systemctl enable wowthing_upload
+sudo systemctl start wowthing_upload
 ```
 
 ## check logs
 
 ```bash
-sudo journalctl -u wowthing_upload
+sudo systemctl status wowthing_upload
 ```
 
 ## uninstall
 
 ```bash
-sudo service wowthing_upload stop
-sudo service wowthing_upload disable
+sudo systemctl stop wowthing_upload
+sudo systemctl disable wowthing_upload
 sudo rm /etc/init.d/wowthing_upload
 ```
