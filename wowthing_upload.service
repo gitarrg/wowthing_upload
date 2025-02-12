@@ -2,7 +2,7 @@
 Description=WowThing Upload Service
 
 [Service]
-ExecStart=/mnt/c/Users/me/AppData/Local/Programs/Python/Python311/python.exe "D:/dev/wowthing_upload/main.py"
+ExecStart=/mnt/c/Users/me/AppData/Local/Programs/Python/Python311/python.exe "/home/me/wow/wowthing_upload/main.py"
 Restart=on-failure
 
 [Install]
