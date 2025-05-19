@@ -5,6 +5,6 @@ api_key = "<replace with your api key>"
 
 # List of file paths to monitor for changes
 files = [
-    "D:/Games/World of Warcraft/_retail_/WTF/Account/_main_/SavedVariables/WoWthing_Collector.lua",
-    "D:/Games/World of Warcraft LOW/_retail_/WTF/Account/_main_/SavedVariables/WoWthing_Collector.lua",
+    "F:/Games/World of Warcraft/_retail_/WTF/Account/_main_/SavedVariables/WoWthing_Collector.lua",
+    "F:/Games/World of Warcraft LOW/_retail_/WTF/Account/_main_/SavedVariables/WoWthing_Collector.lua",
 ]
