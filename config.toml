@@ -1,0 +1,20 @@
+
+
+host = "https://wowthing.org"
+
+api_key = ""
+
+
+files = [
+
+    # win
+    "C:/Games/World of Warcraft LOW/_retail_/WTF/Account/_main_/SavedVariables/WoWthing_Collector.lua",
+    "C:/Games/World of Warcraft/_retail_/WTF/Account/_main_/SavedVariables/WoWthing_Collector.lua",
+
+    # lx
+    "/mnt/c/Games/World of Warcraft LOW/_retail_/WTF/Account/_main_/SavedVariables/WoWthing_Collector.lua",
+    "/mnt/c/Games/World of Warcraft/_retail_/WTF/Account/_main_/SavedVariables/WoWthing_Collector.lua",
+
+    # "file2.txt",
+    # "file3.txt",
+]

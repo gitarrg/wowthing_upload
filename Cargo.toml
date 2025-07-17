@@ -1,0 +1,12 @@
+[package]
+name = "wowthing_upload_rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+chrono = "0.4.41"
+debounce = "0.2.2"
+notify = "8.0.0"
+reqwest = { version = "0.12.22", features = ["blocking", "json"] }
+serde = { version = "1.0.219", features = ["derive"] }
+toml = "0.8"
