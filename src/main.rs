@@ -2,6 +2,7 @@
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
+use std::path::PathBuf;
 use std::str;
 use std::time;
 
@@ -27,29 +28,14 @@ struct Config {
     files: Vec<String>,
 }
 
-fn load_config(path: &str) -> Config {
-    let contents = match fs::read_to_string(path) {
-        Ok(c) => c,
-        Err(_) => {
-            eprintln!("Unable to read config file '{path}'");
-            std::process::exit(1);
-        }
-    };
+fn load_config(path: &PathBuf) -> Result<Config, String> {
+    let contents: String = fs::read_to_string(path)
+        .map_err(|err| format!("Unable to read config file: {path:?}. {}", err))?;
 
-    let config: Config = match toml::from_str(&contents) {
-        // If successful, return data as `Data` struct.
-        Ok(d) => d,
+        let config: Config = toml::from_str(&contents)
+        .map_err(|err| format!("Unable to parse config file: {path:?}. {}", err))?;
 
-        // Handle the `error` case.
-        Err(_) => {
-            // Write `msg` to `stderr`.
-            eprintln!("Unable to load data from `{}`", path);
-            // Exit the program with exit code `1`.
-            std::process::exit(1);
-        }
-    };
-
-    config
+        return Ok(config);
 }
 
 /*******************************************************************************
@@ -91,9 +77,20 @@ fn main() {
     println!("[{now}] hello!");
 
 
-    let config = load_config("config.toml");
-    // let api_key = config.api_key;
+    // Construct path to config
+    let exe_path = std::env::current_exe().expect("Failed to get current exe path");
+    let exe_dir = exe_path.parent().expect("Executable must be in a directory");
+    let config_path = exe_dir.join("config.toml");
+    let config = match load_config(&config_path) {
+        Ok(config) => config,
+        Err(e) => {
+            eprintln!("[{now}] Unable to load config file. Error: {e}");
+            let _ = std::io::stdin().read_line(&mut String::new());
+            return;
+        }
+    };
 
+    // let api_key = config.api_key;
     // for path in &config.files {
     //     if Path::new(&path).exists() {
     //         upload_file(&path, &config);
@@ -138,5 +135,4 @@ fn main() {
         }
     }
 
-    // Ok(())
 }
