@@ -14,6 +14,17 @@ use reqwest;
 use serde::Deserialize;
 extern crate chrono;
 use chrono::Local;
+use clap::Parser;
+
+
+/// Simple uploader for wowthing.org
+#[derive(Parser)]
+struct CliArgs {
+
+    // Path to the config file
+    #[arg(short, long, default_value_t = String::from("config.toml"))]
+    config: String,
+}
 
 
 /*******************************************************************************
@@ -73,14 +84,18 @@ fn upload_file(path: &String, config: &Config) {
 
 fn main() {
 
+
     let now = Local::now().format("%Y-%m-%dT%H:%M:%S");
     println!("[{now}] hello!");
 
+    let args: CliArgs = CliArgs::parse();
 
     // Construct path to config
-    let exe_path = std::env::current_exe().expect("Failed to get current exe path");
-    let exe_dir = exe_path.parent().expect("Executable must be in a directory");
-    let config_path = exe_dir.join("config.toml");
+    // let exe_path = std::env::current_exe().expect("Failed to get current exe path");
+    // let exe_dir = exe_path.parent().expect("Executable must be in a directory");
+    // let config_path = exe_dir.join("config.toml");
+    let config_path = PathBuf::from(args.config);
+    println!("[{now}] using config file: {config_path:?}");
     let config = match load_config(&config_path) {
         Ok(config) => config,
         Err(e) => {
@@ -90,7 +105,7 @@ fn main() {
         }
     };
 
-    // let api_key = config.api_key;
+    // let api_key = config.api_key;q
     // for path in &config.files {
     //     if Path::new(&path).exists() {
     //         upload_file(&path, &config);
