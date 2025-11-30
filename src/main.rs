@@ -24,6 +24,15 @@ struct CliArgs {
     // Path to the config file
     #[arg(short, long, default_value_t = String::from("config.toml"))]
     config: String,
+
+    // Upload on startup
+    #[arg(short, long, default_value_t = false)]
+    upload_on_startup: bool,
+
+    // Close after upload
+    #[arg(short, long, default_value_t = false)]
+    close_after_upload: bool,
+
 }
 
 
@@ -105,12 +114,20 @@ fn main() {
         }
     };
 
-    // let api_key = config.api_key;q
-    // for path in &config.files {
-    //     if Path::new(&path).exists() {
-    //         upload_file(&path, &config);
-    //     }
-    // }
+    // Upload on startup
+    if args.upload_on_startup
+    {
+        for path in &config.files {
+            if Path::new(&path).exists() {
+                upload_file(&path, &config);
+            }
+        }
+    }
+
+    // Close after upload
+    if args.close_after_upload {
+        std::process::exit(0);
+    }
 
     // Add files to the watcher
     let (tx, rx) = std::sync::mpsc::channel();
