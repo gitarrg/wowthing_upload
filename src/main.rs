@@ -28,11 +28,6 @@ struct CliArgs {
     // Upload on startup
     #[arg(short, long, default_value_t = false)]
     upload_on_startup: bool,
-
-    // Close after upload
-    #[arg(short, long, default_value_t = false)]
-    close_after_upload: bool,
-
 }
 
 
@@ -122,11 +117,6 @@ fn main() {
                 upload_file(&path, &config);
             }
         }
-    }
-
-    // Close after upload
-    if args.close_after_upload {
-        std::process::exit(0);
     }
 
     // Add files to the watcher
